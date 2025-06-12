@@ -2,7 +2,7 @@ workflows:
   flutter-build:
     name: Build Flutter APK
     environment:
-      flutter: "3.19.6"  # Use exact version to avoid fetch errors
+      flutter: "3.22.0"  # ✅ This includes Dart 3.8
     scripts:
       - name: Install dependencies
         script: flutter pub get
