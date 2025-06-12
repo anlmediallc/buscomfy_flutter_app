@@ -1,19 +1,32 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://storage.googleapis.com/download.flutter.io' }
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    namespace "com.yourcompany.buscomfy"
+    compileSdkVersion 33
+
+    defaultConfig {
+        applicationId "com.yourcompany.buscomfy"
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
     }
-    dependencies {
-    classpath 'com.android.tools.build:gradle:8.2.2'
-    // ...other dependencies
-}
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://storage.googleapis.com/download.flutter.io' }
-    }
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.10"
+    implementation "androidx.core:core-ktx:1.10.1"
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.9.0"
 }
+
