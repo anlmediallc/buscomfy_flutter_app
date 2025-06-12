@@ -39,4 +39,46 @@
             <data android:mimeType="text/plain" />
         </intent>
     </queries>
+here's the orignal code. 
+
+plugins {
+    id("com.android.application")
+    kotlin("android")
+}
+
+android {
+    namespace = "com.yourcompany.buscomfy"
+    compileSdk = 33
+
+    defaultConfig {
+        applicationId = "com.yourcompany.buscomfy"
+        minSdk = 21
+        targetSdk = 33
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+}
+
+repositories {
+    google() // ✅ Required for AndroidX and Material
+    mavenCentral() // ✅ Required for Kotlin stdlib
+    maven { url = uri("https://storage.googleapis.com/download.flutter.io") } // ✅ Flutter mirror
+}
+
+dependencies {
+    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.1.0")
+}
 </manifest>
