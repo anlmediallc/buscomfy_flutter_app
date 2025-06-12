@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yourcompany.buscomfy">
 
-    <!-- Permissions -->
+    <!-- Internet permission -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
