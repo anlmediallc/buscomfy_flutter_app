@@ -26,8 +26,15 @@ android {
     }
 }
 
+repositories {
+    google() // ✅ Required for AndroidX and Material
+    mavenCentral() // ✅ Required for Kotlin stdlib
+    maven { url = uri("https://storage.googleapis.com/download.flutter.io") } // ✅ Flutter mirror
+}
+
 dependencies {
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.1.0")
 }
