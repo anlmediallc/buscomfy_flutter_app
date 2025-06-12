@@ -25,16 +25,33 @@ android {
         }
     }
 }
-
-repositories {
-    google() // ✅ Required for AndroidX and Material
-    mavenCentral() // ✅ Required for Kotlin stdlib
-    maven { url = uri("https://storage.googleapis.com/download.flutter.io") } // ✅ Flutter mirror
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()  // ✅ Add this line if it's missing
+        maven { url "https://storage.googleapis.com/download.flutter.io" }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.1' // or your version
+    }
+maven {
+    url "https://storage.googleapis.com/download.flutter.io"
+    metadataSources {
+        mavenPom()
+        artifact()
+    }
 }
 
-dependencies {
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.1.0")
+
+
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()  // ✅ Add this line if it's missing
+        maven { url "https://storage.googleapis.com/download.flutter.io" }
+    }
 }
