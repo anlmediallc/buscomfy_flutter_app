@@ -1,18 +1,20 @@
 name: buscomfy_new
 description: A new Flutter project for the Buscomfy App
-publish_to: 'none' # Remove this if publishing to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
   sdk: ">=3.3.4 <4.0.0"
+  flutter: ">=3.22.0"
 
 dependencies:
   flutter:
     sdk: flutter
+
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.7
-  provider: ^6.0.5
+  provider: ^6.1.2
   http: ^0.13.6
 
 dev_dependencies:
@@ -23,8 +25,13 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # Uncomment and adjust if needed:
-  # assets:
-  #   - assets/images/
-  #   - assets/icons/
-  #   - assets/fonts/
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  # fonts:
+  #   - family: Roboto
+  #     fonts:
+  #       - asset: assets/fonts/Roboto-Regular.ttf
+  #       - asset: assets/fonts/Roboto-Bold.ttf
+  #         weight: 700
