@@ -1,36 +1,20 @@
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-}
+buildscript {
+    ext.kotlin_version = '1.9.10'
 
-android {
-    namespace 'com.yourcompany.buscomfy'
-    compileSdk 33
-
-    defaultConfig {
-        applicationId 'com.yourcompany.buscomfy'
-        minSdk 21
-        targetSdk 33
-        versionCode 1
-        versionName '1.0'
+    repositories {
+        google()
+        mavenCentral()
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false // ✅ CORRECT in Groovy
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
-repositories {
-    google()
-    mavenCentral()
-}
-
-dependencies {
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.10'
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
