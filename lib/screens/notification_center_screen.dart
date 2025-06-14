@@ -3,30 +3,26 @@ import '../widgets/bottom_navigation_bar.dart';
 
 class NotificationCenterScreen extends StatelessWidget {
   // Sample notification data
-  final List<Map<String, dynamic>> notifications = [
+  final List<Map<String, dynamic>> notifications = const [
     {
       'icon': Icons.access_time,
       'title': 'Your bus is delayed by 15 minutes',
       'subtitle': 'MSS Transport – 20 min ago',
-      'time': '20 min ago',
     },
     {
       'icon': Icons.confirmation_number_outlined,
       'title': 'Ticket booking confirmed',
       'subtitle': 'Buscomfy+ – 1 hour ago',
-      'time': '1 hour ago',
     },
     {
       'icon': Icons.location_on_outlined,
       'title': 'You have arrived at your destination',
       'subtitle': 'Trip completed – 2 hours ago',
-      'time': '2 hours ago',
     },
     {
       'icon': Icons.payment,
       'title': 'Payment successful',
       'subtitle': 'Transaction ID: #BF12345 – 3 hours ago',
-      'time': '3 hours ago',
     },
   ];
 
@@ -36,10 +32,10 @@ class NotificationCenterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-              "https://cdn.builder.io/api/v1/image/assets%2F47bedcd915494a2c9d8c3faf11622396%2F3e3b118899d545fe8107825676bfdf48",
+              'https://cdn.builder.io/api/v1/image/assets%2F47bedcd915494a2c9d8c3faf11622396%2F3e3b118899d545fe8107825676bfdf48',
             ),
             fit: BoxFit.cover,
           ),
@@ -47,60 +43,47 @@ class NotificationCenterScreen extends StatelessWidget {
         child: SafeArea(
           child: Center(
             child: Container(
-              constraints: BoxConstraints(maxWidth: 448),
+              constraints: const BoxConstraints(maxWidth: 448),
               height: 650,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                fontFamily: 'Inter',
-              ),
+              decoration: const BoxDecoration(color: Colors.white),
               child: Stack(
                 children: [
                   Column(
                     children: [
                       // Header section with background image
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(
-                              "https://cdn.builder.io/api/v1/image/assets%2F47bedcd915494a2c9d8c3faf11622396%2F6ee3345d560641f1bc37df16062b7293",
+                              'https://cdn.builder.io/api/v1/image/assets%2F47bedcd915494a2c9d8c3faf11622396%2F6ee3345d560641f1bc37df16062b7293',
                             ),
                             fit: BoxFit.cover,
                           ),
                         ),
-                        padding: EdgeInsets.fromLTRB(16, 16, 16, 32),
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
                         child: Row(
                           children: [
                             GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
+                              onTap: () => Navigator.pop(context),
                               child: Container(
-                                padding: EdgeInsets.all(4),
+                                padding: const EdgeInsets.all(4),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Icons.arrow_back_ios,
-                                      color: Colors.white,
-                                      size: 20,
-                                    ),
-                                    Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                      size: 16,
-                                    ),
+                                  children: const [
+                                    Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+                                    SizedBox(width: 4),
+                                    Icon(Icons.notifications, color: Colors.white, size: 20),
                                   ],
                                 ),
                               ),
                             ),
-                            SizedBox(width: 16),
-                            Text(
+                            const SizedBox(width: 16),
+                            const Text(
                               'Notification Center',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
-                                height: 1.4,
                               ),
                             ),
                           ],
@@ -110,7 +93,7 @@ class NotificationCenterScreen extends StatelessWidget {
                       // White content section with rounded top corners
                       Expanded(
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(24),
@@ -122,72 +105,35 @@ class NotificationCenterScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: SingleChildScrollView(
-                                  padding: EdgeInsets.fromLTRB(16, 16, 16, 96),
+                                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       // Today section
-                                      Container(
-                                        margin: EdgeInsets.only(bottom: 16),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Today',
-                                              style: TextStyle(
-                                                color: Color(0xFF111827),
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                marginBottom: 8,
-                                              ),
-                                            ),
-                                            SizedBox(height: 8),
-
-                                            // Notification items
-                                            ...notifications
-                                                .take(2)
-                                                .map(
-                                                  (notification) =>
-                                                      _buildNotificationItem(
-                                                        notification,
-                                                      ),
-                                                ),
-                                          ],
+                                      const Text(
+                                        'Today',
+                                        style: TextStyle(
+                                          color: Color(0xFF111827),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
+                                      const SizedBox(height: 8),
+                                      ...notifications.take(2).map(_buildNotificationItem),
+
+                                      const SizedBox(height: 24),
 
                                       // Earlier section
-                                      Container(
-                                        margin: EdgeInsets.only(bottom: 16),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Earlier',
-                                              style: TextStyle(
-                                                color: Color(0xFF111827),
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                marginBottom: 8,
-                                              ),
-                                            ),
-                                            SizedBox(height: 8),
-
-                                            // Earlier notification items
-                                            ...notifications
-                                                .skip(2)
-                                                .map(
-                                                  (notification) =>
-                                                      _buildNotificationItem(
-                                                        notification,
-                                                      ),
-                                                ),
-                                          ],
+                                      const Text(
+                                        'Earlier',
+                                        style: TextStyle(
+                                          color: Color(0xFF111827),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
+                                      const SizedBox(height: 8),
+                                      ...notifications.skip(2).map(_buildNotificationItem),
                                     ],
                                   ),
                                 ),
@@ -224,17 +170,14 @@ class NotificationCenterScreen extends StatelessWidget {
 
   Widget _buildNotificationItem(Map<String, dynamic> notification) {
     return Container(
-      margin: EdgeInsets.only(top: 4),
+      margin: const EdgeInsets.only(bottom: 12),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {
-            // Handle notification tap
-            print('Tapped notification: ${notification['title']}');
-          },
+          onTap: () {},
           borderRadius: BorderRadius.circular(8),
           child: Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(12),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -242,22 +185,13 @@ class NotificationCenterScreen extends StatelessWidget {
                 Container(
                   width: 32,
                   height: 32,
-                  margin: EdgeInsets.only(top: 2),
                   decoration: BoxDecoration(
-                    color: Color(0xFFE5E7EB),
+                    color: const Color(0xFFE5E7EB),
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: Center(
-                    child: Icon(
-                      notification['icon'],
-                      color: Color(0xFF4B5563),
-                      size: 16,
-                    ),
-                  ),
+                  child: Icon(notification['icon'], color: const Color(0xFF4B5563), size: 16),
                 ),
-
-                SizedBox(width: 8),
-
+                const SizedBox(width: 12),
                 // Notification content
                 Expanded(
                   child: Column(
@@ -265,21 +199,19 @@ class NotificationCenterScreen extends StatelessWidget {
                     children: [
                       Text(
                         notification['title'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xFF111827),
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          height: 1.25,
                         ),
                       ),
-                      SizedBox(height: 2),
+                      const SizedBox(height: 4),
                       Text(
                         notification['subtitle'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xFF4B5563),
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          height: 1.25,
                         ),
                       ),
                     ],
