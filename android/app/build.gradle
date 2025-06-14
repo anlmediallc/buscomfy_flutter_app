@@ -16,22 +16,18 @@ apply plugin: 'dev.flutter.flutter-gradle-plugin'
 
 android {
     namespace 'com.example.buscomfy_app'
-    -  compileSdkVersion 33
-    +  compileSdkVersion 34   // or 35, 36—just ≥ 34
-
+    compileSdkVersion 34   // bumped to at least 34
 
     defaultConfig {
         applicationId "com.example.buscomfy_app"
         minSdkVersion 21
-        -    targetSdkVersion 33
-        +    targetSdkVersion 34   // match or exceed compileSdkVersion
+        targetSdkVersion 34   // match or exceed compileSdkVersion
         versionCode flutterVersionCode
         versionName flutterVersionName
     }
 
     buildTypes {
         release {
-            // You can change this later to a real release signing config
             signingConfig signingConfigs.debug
             minifyEnabled false
             shrinkResources false
