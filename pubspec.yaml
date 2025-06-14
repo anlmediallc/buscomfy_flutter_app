@@ -24,3 +24,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+  fonts:                        # ✅ Must be indented under `flutter`
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
