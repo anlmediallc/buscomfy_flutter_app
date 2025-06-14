@@ -1,4 +1,4 @@
-package com.example.buscomfy_app
+package com.yourcompany.buscomfy
 
 import io.flutter.embedding.android.FlutterActivity
 
