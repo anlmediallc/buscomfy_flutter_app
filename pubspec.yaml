@@ -1,5 +1,5 @@
 name: buscomfy_flutter_app
-description: A Flutter project for the Buscomfy app.
+# A Flutter project for the Buscomfy app.
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -22,7 +22,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # make sure these paths match your actual folders
   assets:
     - assets/images/
     - assets/icons/
