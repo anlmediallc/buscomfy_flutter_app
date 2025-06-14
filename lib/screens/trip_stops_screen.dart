@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import '../widgets/bottom_navigation_bar.dart';
 
 class TripStopsScreen extends StatelessWidget {
-  // Sample stops data
-  final List<Map<String, dynamic>> stops = [
+  const TripStopsScreen({super.key});
+
+  final List<Map<String, dynamic>> stops = const [
     {
       'time': '7:30',
       'period': 'AM',
@@ -46,279 +47,35 @@ class TripStopsScreen extends StatelessWidget {
     },
   ];
 
-  const TripStopsScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(color: Colors.white),
+        color: Colors.white,
         child: SafeArea(
           child: Center(
             child: Container(
               constraints: BoxConstraints(maxWidth: 448),
               height: 650,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                fontFamily: 'Inter',
-              ),
               child: Stack(
                 children: [
                   Column(
                     children: [
-                      // Status bar
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color(0xFFF7960F), // rgb(247, 150, 15)
-                              Color(0xFFFF8C00), // rgb(255, 140, 0)
-                            ],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '9:41',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                // Signal strength indicators
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 4,
-                                      height: 12,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(2),
-                                      ),
-                                    ),
-                                    SizedBox(width: 4),
-                                    Container(
-                                      width: 4,
-                                      height: 12,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(2),
-                                      ),
-                                    ),
-                                    SizedBox(width: 4),
-                                    Container(
-                                      width: 4,
-                                      height: 12,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(2),
-                                      ),
-                                    ),
-                                    SizedBox(width: 4),
-                                    Container(
-                                      width: 4,
-                                      height: 12,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(0.7),
-                                        borderRadius: BorderRadius.circular(2),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 8),
-                                // WiFi icon
-                                Icon(Icons.wifi, color: Colors.white, size: 16),
-                                SizedBox(width: 4),
-                                // Battery indicator
-                                Container(
-                                  width: 24,
-                                  height: 12,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Container(
-                                      width: 16,
-                                      height: 12,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      // Header with back button and title
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color(0xFFF7960F), // rgb(247, 150, 15)
-                              Color(0xFFFF8C00), // rgb(255, 140, 0)
-                            ],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ),
-                        ),
-                        padding: EdgeInsets.all(16),
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.all(4),
-                                child: Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.white,
-                                  size: 24,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 16),
-                            Text(
-                              'Trip Details',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                height: 1.4,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      // Main content
+                      _buildStatusBar(),
+                      _buildHeader(context),
                       Expanded(
                         child: SingleChildScrollView(
                           padding: EdgeInsets.only(bottom: 80),
                           child: Column(
                             children: [
-                              // Transport company section
-                              Container(
-                                padding: EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      color: Color(0xFFF3F4F6),
-                                      width: 1,
-                                    ),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        // Company logo
-                                        Container(
-                                          width: 40,
-                                          height: 40,
-                                          decoration: BoxDecoration(
-                                            color: Colors.black,
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              'MSS',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(width: 12),
-                                        Text(
-                                          'MSS transport',
-                                          style: TextStyle(
-                                            color: Color(0xFF111827),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    // External link button
-                                    Container(
-                                      padding: EdgeInsets.all(6),
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF1F2937),
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Icon(
-                                        Icons.open_in_new,
-                                        color: Colors.white,
-                                        size: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              // Stops timeline
-                              Container(
-                                padding: EdgeInsets.all(16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Route Timeline',
-                                      style: TextStyle(
-                                        color: Color(0xFF111827),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                        marginBottom: 16,
-                                      ),
-                                    ),
-                                    SizedBox(height: 16),
-
-                                    // Timeline items
-                                    ...stops.asMap().entries.map((entry) {
-                                      int index = entry.key;
-                                      Map<String, dynamic> stop = entry.value;
-                                      bool isLast = index == stops.length - 1;
-
-                                      return _buildTimelineItem(
-                                        stop: stop,
-                                        isLast: isLast,
-                                      );
-                                    }),
-                                  ],
-                                ),
-                              ),
+                              _buildCompanySection(),
+                              _buildStopsTimeline(),
                             ],
                           ),
                         ),
                       ),
                     ],
                   ),
-
-                  // Bottom Navigation
                   Positioned(
                     bottom: 0,
                     left: 0,
@@ -341,18 +98,201 @@ class TripStopsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTimelineItem({
-    required Map<String, dynamic> stop,
-    required bool isLast,
-  }) {
+  Widget _buildStatusBar() {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xFFF7960F), Color(0xFFFF8C00)],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            '9:41',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Inter',
+            ),
+          ),
+          Row(
+            children: [
+              Row(
+                children: List.generate(4, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 4),
+                    child: Container(
+                      width: 4,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        color: index < 3
+                            ? Colors.white
+                            : Colors.white.withOpacity(0.7),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+              Icon(Icons.wifi, color: Colors.white, size: 16),
+              SizedBox(width: 4),
+              Container(
+                width: 24,
+                height: 12,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    width: 16,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xFFF7960F), Color(0xFFFF8C00)],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
+      ),
+      padding: EdgeInsets.all(16),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Padding(
+              padding: EdgeInsets.all(4),
+              child: Icon(Icons.arrow_back, color: Colors.white, size: 24),
+            ),
+          ),
+          SizedBox(width: 16),
+          Text(
+            'Trip Details',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              height: 1.4,
+              fontFamily: 'Inter',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCompanySection() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(bottom: BorderSide(color: Color(0xFFF3F4F6), width: 1)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Text(
+                    'MSS',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 12),
+              Text(
+                'MSS transport',
+                style: TextStyle(
+                  color: Color(0xFF111827),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Inter',
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: Color(0xFF1F2937),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Icon(Icons.open_in_new, color: Colors.white, size: 12),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStopsTimeline() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Route Timeline',
+            style: TextStyle(
+              color: Color(0xFF111827),
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Inter',
+            ),
+          ),
+          SizedBox(height: 16),
+          ...stops.asMap().entries.map((entry) {
+            int index = entry.key;
+            Map<String, dynamic> stop = entry.value;
+            bool isLast = index == stops.length - 1;
+            return _buildTimelineItem(stop, isLast);
+          }),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTimelineItem(Map<String, dynamic> stop, bool isLast) {
     Color getStatusColor(String status) {
       switch (status) {
         case 'completed':
-          return Color(0xFF10B981); // Green
+          return Color(0xFF10B981);
         case 'current':
-          return Color(0xFFF97316); // Orange
+          return Color(0xFFF97316);
         case 'upcoming':
-          return Color(0xFFE5E7EB); // Gray
         default:
           return Color(0xFFE5E7EB);
       }
@@ -374,7 +314,6 @@ class TripStopsScreen extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Time column
           SizedBox(
             width: 60,
             child: Column(
@@ -386,6 +325,7 @@ class TripStopsScreen extends StatelessWidget {
                     color: Color(0xFF111827),
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
+                    fontFamily: 'Inter',
                   ),
                 ),
                 Text(
@@ -394,18 +334,15 @@ class TripStopsScreen extends StatelessWidget {
                     color: Color(0xFF6B7280),
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
+                    fontFamily: 'Inter',
                   ),
                 ),
               ],
             ),
           ),
-
           SizedBox(width: 16),
-
-          // Timeline indicator column
           Column(
             children: [
-              // Status circle with icon
               Container(
                 width: 32,
                 height: 32,
@@ -421,8 +358,6 @@ class TripStopsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Connecting line (if not last item)
               if (!isLast)
                 Container(
                   width: 2,
@@ -432,10 +367,7 @@ class TripStopsScreen extends StatelessWidget {
                 ),
             ],
           ),
-
           SizedBox(width: 16),
-
-          // Stop information column
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -446,6 +378,7 @@ class TripStopsScreen extends StatelessWidget {
                     color: Color(0xFF111827),
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
+                    fontFamily: 'Inter',
                   ),
                 ),
                 SizedBox(height: 4),
@@ -456,6 +389,7 @@ class TripStopsScreen extends StatelessWidget {
                       color: Color(0xFF6B7280),
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
+                      fontFamily: 'Inter',
                     ),
                   ),
                 if (stop['type'] == 'departure')
@@ -465,6 +399,7 @@ class TripStopsScreen extends StatelessWidget {
                       color: Color(0xFF10B981),
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
+                      fontFamily: 'Inter',
                     ),
                   ),
                 if (stop['type'] == 'arrival')
@@ -474,6 +409,7 @@ class TripStopsScreen extends StatelessWidget {
                       color: Color(0xFF10B981),
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
+                      fontFamily: 'Inter',
                     ),
                   ),
                 if (stop['status'] == 'current')
@@ -490,6 +426,7 @@ class TripStopsScreen extends StatelessWidget {
                         color: Color(0xFFF97316),
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
+                        fontFamily: 'Inter',
                       ),
                     ),
                   ),
