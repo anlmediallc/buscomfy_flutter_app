@@ -1,3 +1,11 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
 def flutterRoot = localProperties.getProperty('flutter.sdk') ?: System.getenv('FLUTTER_ROOT')
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')?.toInteger() ?: 1
 def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: "1.0"
@@ -20,6 +28,7 @@ android {
 
     buildTypes {
         release {
+            // You can change this later to a real release signing config
             signingConfig signingConfigs.debug
             minifyEnabled false
             shrinkResources false
