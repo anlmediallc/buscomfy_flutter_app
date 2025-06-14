@@ -21,10 +21,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  # make sure these paths match your actual folders
   assets:
     - assets/images/
     - assets/icons/
-  fonts:                        # ✅ Must be indented under `flutter`
+
+  fonts:
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter-Regular.ttf
