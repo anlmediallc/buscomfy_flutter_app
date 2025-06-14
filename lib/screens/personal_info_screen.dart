@@ -9,9 +9,7 @@ class PersonalInfoScreen extends StatefulWidget {
 
 class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   final _nameController = TextEditingController(text: 'James Rodriguez');
-  final _emailController = TextEditingController(
-    text: 'Jamesrodriguez@gmail.com',
-  );
+  final _emailController = TextEditingController(text: 'Jamesrodriguez@gmail.com');
   final _passwordController = TextEditingController(text: '••••••••');
   final _phoneController = TextEditingController(text: '+1 234 567 8900');
   bool _isPasswordVisible = false;
@@ -24,7 +22,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
               "https://2ac212472ec64c4582e1703c57c9c27f-b99b23cf3e5141f3b8ba63a73.fly.dev/orange-bg.svg",
@@ -35,18 +33,21 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
         child: SafeArea(
           child: Center(
             child: Container(
-              constraints: BoxConstraints(maxWidth: 448),
+              constraints: const BoxConstraints(maxWidth: 448),
               height: 650,
-              margin: EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: const BoxDecoration(
                 color: Colors.white,
-                fontFamily: 'Inter',
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
+                ),
               ),
               child: Column(
                 children: [
                   // Header section with background image
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
                           "https://cdn.builder.io/api/v1/image/assets%2F47bedcd915494a2c9d8c3faf11622396%2F6ee3345d560641f1bc37df16062b7293",
@@ -54,24 +55,18 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    padding: EdgeInsets.fromLTRB(16, 16, 16, 32),
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
                     child: Row(
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
+                          onTap: () => Navigator.pop(context),
+                          child: const Padding(
                             padding: EdgeInsets.all(4),
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                              size: 24,
-                            ),
+                            child: Icon(Icons.arrow_back, color: Colors.white, size: 24),
                           ),
                         ),
-                        SizedBox(width: 16),
-                        Text(
+                        const SizedBox(width: 16),
+                        const Text(
                           'My Account',
                           style: TextStyle(
                             color: Colors.white,
@@ -83,305 +78,179 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                       ],
                     ),
                   ),
-
-                  // White content section with rounded top corners
+                  // White content section
                   Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24),
-                        ),
-                      ),
-                      transform: Matrix4.translationValues(0, -12, 0),
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.only(bottom: 24),
                       child: Column(
                         children: [
                           // Profile picture section
                           Container(
-                            padding: EdgeInsets.fromLTRB(24, 24, 24, 8),
-                            child: Center(
-                              child: Stack(
+                            margin: const EdgeInsets.only(top:  twelve ) ),
+                          ),
+                          // Form section
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(24, 0, 24, 96),
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Profile picture
-                                  Container(
-                                    width: 96,
-                                    height: 96,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 4,
-                                      ),
-                                      borderRadius: BorderRadius.circular(48),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.1),
-                                          blurRadius: 15,
-                                          offset: Offset(0, 10),
-                                        ),
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.1),
-                                          blurRadius: 6,
-                                          offset: Offset(0, 4),
-                                        ),
-                                      ],
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(48),
-                                      child: Image.network(
-                                        _profileImageUrl,
-                                        fit: BoxFit.cover,
-                                        width: 96,
-                                        height: 96,
-                                      ),
-                                    ),
+                                  _buildFormField(
+                                    label: 'Name',
+                                    controller: _nameController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your name';
+                                      }
+                                      return null;
+                                    },
                                   ),
-
-                                  // Camera edit button
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: GestureDetector(
-                                      onTap: _handleProfilePictureEdit,
-                                      child: Container(
-                                        width: 32,
-                                        height: 32,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius: BorderRadius.circular(
-                                            16,
-                                          ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black.withOpacity(
-                                                0.1,
-                                              ),
-                                              blurRadius: 15,
-                                              offset: Offset(0, 10),
-                                            ),
-                                            BoxShadow(
-                                              color: Colors.black.withOpacity(
-                                                0.1,
-                                              ),
-                                              blurRadius: 6,
-                                              offset: Offset(0, 4),
-                                            ),
-                                          ],
+                                  const SizedBox(height: 12),
+                                  _buildFormField(
+                                    label: 'Email Address',
+                                    controller: _emailController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your email';
+                                      }
+                                      if (!value.contains('@')) {
+                                        return 'Please enter a valid email';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(height: 12),
+                                  _buildFormField(
+                                    label: 'Phone Number',
+                                    controller: _phoneController,
+                                    keyboardType: TextInputType.phone,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your phone number';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(height: 12),
+                                  // Password Field
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Password',
+                                        style: TextStyle(
+                                          color: Color(0xFF374151),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          height: 1.33,
                                         ),
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.camera_alt,
-                                            color: Colors.white,
-                                            size: 16,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      TextFormField(
+                                        controller: _passwordController,
+                                        obscureText: !_isPasswordVisible,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                            borderSide: const BorderSide(
+                                              color: Color(0xFFE5E7EB),
+                                            ),
                                           ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                            borderSide: const BorderSide(
+                                              color: Color(0xFFE5E7EB),
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                            borderSide: const BorderSide(
+                                              color: Color(0xFFF97316),
+                                            ),
+                                          ),
+                                          contentPadding: const EdgeInsets.only(
+                                            left: 12,
+                                            right: 40,
+                                            top: 8,
+                                            bottom: 8,
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                                              color: const Color(0xFF6B7280),
+                                              size: 16,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _isPasswordVisible = !_isPasswordVisible;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          height: 1.43,
+                                        ),
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter your password';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 24),
+                                  // Save Button
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 48,
+                                    child: ElevatedButton(
+                                      onPressed: _isLoading ? null : _handleSave,
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.transparent,
+                                        shadowColor: Colors.transparent,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        padding: EdgeInsets.zero,
+                                      ),
+                                      child: Ink(
+                                        decoration: BoxDecoration(
+                                          gradient: const LinearGradient(
+                                            colors: [
+                                              Color(0xFFF7960F),
+                                              Color(0xFFFF8C00),
+                                            ],
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                          ),
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: _isLoading
+                                              ? const CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                  strokeWidth: 2,
+                                                )
+                                              : const Text(
+                                                  'Save Changes',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500,
+                                                    height: 1.5,
+                                                  ),
+                                                ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ],
-                              ),
-                            ),
-                          ),
-
-                          // Form section
-                          Expanded(
-                            child: SingleChildScrollView(
-                              padding: EdgeInsets.fromLTRB(24, 0, 24, 96),
-                              child: Form(
-                                key: _formKey,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Name Field
-                                    _buildFormField(
-                                      label: 'Name',
-                                      controller: _nameController,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter your name';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-
-                                    SizedBox(height: 12),
-
-                                    // Email Field
-                                    _buildFormField(
-                                      label: 'E mail address',
-                                      controller: _emailController,
-                                      keyboardType: TextInputType.emailAddress,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter your email';
-                                        }
-                                        if (!value.contains('@')) {
-                                          return 'Please enter a valid email';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-
-                                    SizedBox(height: 12),
-
-                                    // Phone Field
-                                    _buildFormField(
-                                      label: 'Phone Number',
-                                      controller: _phoneController,
-                                      keyboardType: TextInputType.phone,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter your phone number';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-
-                                    SizedBox(height: 12),
-
-                                    // Password Field
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Password',
-                                          style: TextStyle(
-                                            color: Color(0xFF374151),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            height: 1.33,
-                                          ),
-                                        ),
-                                        SizedBox(height: 4),
-                                        TextFormField(
-                                          controller: _passwordController,
-                                          obscureText: !_isPasswordVisible,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFE5E7EB),
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFE5E7EB),
-                                              ),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFF97316),
-                                              ),
-                                            ),
-                                            contentPadding: EdgeInsets.only(
-                                              left: 12,
-                                              right: 40,
-                                              top: 8,
-                                              bottom: 8,
-                                            ),
-                                            suffixIcon: IconButton(
-                                              icon: Icon(
-                                                _isPasswordVisible
-                                                    ? Icons.visibility_off
-                                                    : Icons.visibility,
-                                                color: Color(0xFF6B7280),
-                                                size: 16,
-                                              ),
-                                              onPressed: () {
-                                                setState(() {
-                                                  _isPasswordVisible =
-                                                      !_isPasswordVisible;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            height: 1.43,
-                                          ),
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Please enter your password';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ],
-                                    ),
-
-                                    SizedBox(height: 24),
-
-                                    // Save Button
-                                    SizedBox(
-                                      width: double.infinity,
-                                      height: 48,
-                                      child: ElevatedButton(
-                                        onPressed: _isLoading
-                                            ? null
-                                            : _handleSave,
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.transparent,
-                                          shadowColor: Colors.transparent,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              12,
-                                            ),
-                                          ),
-                                          padding: EdgeInsets.zero,
-                                        ),
-                                        child: Ink(
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                Color(
-                                                  0xFFF7960F,
-                                                ), // rgb(247, 150, 15)
-                                                Color(
-                                                  0xFFFF8C00,
-                                                ), // rgb(255, 140, 0)
-                                              ],
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                            ),
-                                            borderRadius: BorderRadius.circular(
-                                              12,
-                                            ),
-                                          ),
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            child: _isLoading
-                                                ? SizedBox(
-                                                    width: 20,
-                                                    height: 20,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                          color: Colors.white,
-                                                          strokeWidth: 2,
-                                                        ),
-                                                  )
-                                                : Text(
-                                                    'Save Changes',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      height: 1.5,
-                                                    ),
-                                                  ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               ),
                             ),
                           ),
@@ -409,33 +278,33 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
       children: [
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             color: Color(0xFF374151),
             fontSize: 12,
             fontWeight: FontWeight.w500,
             height: 1.33,
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Color(0xFFE5E7EB)),
+              borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Color(0xFFE5E7EB)),
+              borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Color(0xFFF97316)),
+              borderSide: const BorderSide(color: Color(0xFFF97316)),
             ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           ),
-          style: TextStyle(fontSize: 14, height: 1.43),
+          style: const TextStyle(fontSize: 14, height: 1.43),
           validator: validator,
         ),
       ],
@@ -447,39 +316,34 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              const Text(
                 'Update Profile Picture',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Take Photo'),
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Take Photo'),
                 onTap: () {
                   Navigator.pop(context);
                   // Handle camera capture
-                  print('Take photo');
                 },
               ),
               ListTile(
-                leading: Icon(Icons.photo_library),
-                title: Text('Choose from Gallery'),
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Choose from Gallery'),
                 onTap: () {
                   Navigator.pop(context);
                   // Handle gallery selection
-                  print('Choose from gallery');
                 },
               ),
               ListTile(
-                leading: Icon(Icons.delete, color: Colors.red),
-                title: Text(
-                  'Remove Photo',
-                  style: TextStyle(color: Colors.red),
-                ),
+                leading: const Icon(Icons.delete, color: Colors.red),
+                title: const Text('Remove Photo', style: TextStyle(color: Colors.red)),
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
@@ -497,31 +361,16 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
   void _handleSave() {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
-
-      // Simulate API call
-      Future.delayed(Duration(seconds: 2), () {
-        setState(() {
-          _isLoading = false;
-        });
-
-        // Show success message
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Personal information updated successfully!',
-              style: TextStyle(color: Colors.white),
-            ),
-            backgroundColor: Color(0xFF10B981),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            duration: Duration(seconds: 3),
-          ),
-        );
+      setState(() => _isLoading = true);
+      Future.delayed(const Duration(seconds: 2), () {
+        setState(() => _isLoading = false);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Personal information updated successfully!', style: TextStyle(color: Colors.white)),
+          backgroundColor: Color(0xFF10B981),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          duration: Duration(seconds: 3),
+        ));
       });
     }
   }
