@@ -16,21 +16,24 @@ apply plugin: 'dev.flutter.flutter-gradle-plugin'
 
 android {
     namespace 'com.example.buscomfy_app'
-    compileSdkVersion 34   // bumped to at least 34
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.example.buscomfy_app"
         minSdkVersion 21
-        targetSdkVersion 34   // match or exceed compileSdkVersion
+        targetSdkVersion 34
         versionCode flutterVersionCode
         versionName flutterVersionName
+
+        // ✅ Only include ARM architectures for real Android devices
         ndk {
-            abiFilters 'arm64-v8a', 'armeabi-v7a'  // remove x86/x86_64
+            abiFilters 'arm64-v8a', 'armeabi-v7a'
         }
     }
+
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug  // <-- You can change to real signing later
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
