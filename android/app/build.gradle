@@ -19,6 +19,11 @@ android {
     compileSdkVersion 34
 
     defaultConfig {
+        packagingOptions {
+    exclude "lib/x86/**"
+    exclude "lib/x86_64/**"
+}
+
         applicationId "com.example.buscomfy_app"
         minSdkVersion 21
         targetSdkVersion 34
