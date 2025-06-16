@@ -1,44 +1,27 @@
-def localProperties = new Properties()
-def localPropertiesFile = rootProject.file('local.properties')
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
-}
-
-def flutterRoot = localProperties.getProperty('flutter.sdk') ?: System.getenv('FLUTTER_ROOT')
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')?.toInteger() ?: 1
-def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: "1.0"
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'dev.flutter.flutter-gradle-plugin'
-
 android {
     namespace 'com.example.buscomfy_app'
     compileSdkVersion 34
 
     defaultConfig {
-        packagingOptions {
-    exclude "lib/x86/**"
-    exclude "lib/x86_64/**"
-}
-
         applicationId "com.example.buscomfy_app"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode flutterVersionCode
         versionName flutterVersionName
 
-        // ✅ Only include ARM architectures for real Android devices
         ndk {
             abiFilters 'arm64-v8a', 'armeabi-v7a'
         }
     }
 
+    packagingOptions {
+        exclude "lib/x86/**"
+        exclude "lib/x86_64/**"
+    }
+
     buildTypes {
         release {
-            signingConfig signingConfigs.debug  // <-- You can change to real signing later
+            signingConfig signingConfigs.debug
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -53,15 +36,4 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-}
-
-flutter {
-    source '../..'
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.10"
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
 }
